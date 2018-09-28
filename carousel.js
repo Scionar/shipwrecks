@@ -3,11 +3,28 @@ var viewArray = [];
 
 /**
  * A view object
+ *
  * @typedef {Object} View
  * @property {string} name - Name of the view for reference
  * @property {blessed.screen} view - Blessed box object
  * @property {(string | array)} key - Keys to show the view
+ * @property {boolean} shown - Is view shown at the moment
  */
+
+/**
+ * Create view object.
+ *
+ * @param {string} name - Name of the view for reference
+ * @param {blessed.screen} view - Blessed box object
+ * @param {(string | array)} key - Keys to show the view
+ * @return {View} View object
+ */
+var createViewObject = (name, view, key) => ({
+  name,
+  view,
+  key,
+  shown: false
+});
 
 /**
  * Initialize carousel. Set screen where to attach views.
@@ -72,6 +89,7 @@ var exit = keys => {
 };
 
 module.exports = {
+  createViewObject,
   init,
   add,
   show,
