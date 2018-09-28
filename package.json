@@ -4,7 +4,7 @@
   "description": "Command line battle ship game",
   "main": "main.js",
   "author": {
-    "name" : "Joona Viertola",
+    "name": "Joona Viertola",
     "url": "https://joonaviertola.com"
   },
   "license": "MIT",
@@ -12,6 +12,7 @@
     "start": "node main.js"
   },
   "dependencies": {
-    "blessed": "^0.1.81"
+    "blessed": "^0.1.81",
+    "redux": "^4.0.0"
   }
 }

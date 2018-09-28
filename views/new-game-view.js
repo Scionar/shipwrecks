@@ -1,5 +1,7 @@
 var blessed = require("blessed");
 var carousel = require("../carousel");
+var store = require("../store");
+var { addGame } = require("../actions");
 
 var view = blessed.box({
   top: "center",
@@ -85,7 +87,8 @@ submit.on("press", () => {
   form.submit();
 })
 
-form.on("submit", function(data) {
+form.on("submit", data => {
+  store.dispatch(addGame(data.name));
   carousel.show("welcomeView");
 });
 

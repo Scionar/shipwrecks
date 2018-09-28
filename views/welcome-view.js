@@ -1,4 +1,5 @@
 var blessed = require("blessed");
+var store = require("../store");
 
 var view = blessed.box({
   top: "center",
@@ -18,6 +19,7 @@ var view = blessed.box({
 });
 
 var title = blessed.box({
+  parent: view,
   top: 0,
   left: "center",
   width: "100%-2",
@@ -31,9 +33,9 @@ var title = blessed.box({
     }
   }
 });
-view.append(title);
 
 var helpText = blessed.box({
+  parent: view,
   bottom: 0,
   left: "center",
   width: "100%-4",
@@ -46,14 +48,9 @@ var helpText = blessed.box({
     }
   }
 });
-view.append(helpText);
-
-var games = [
-  { name: "Come here", status: "Waiting" },
-  { name: "Dev vs UX", status: "Started" }
-];
 
 var gameList = blessed.list({
+  parent: view,
   top: "center",
   left: "center",
   width: "70%",
@@ -64,19 +61,48 @@ var gameList = blessed.list({
   keys: true,
   style: {
     selected: {
-      fg: '#000',
-      bg: 'white'
+      fg: "#000",
+      bg: "white"
     }
   },
-  items: games.map(item => `${item.name} {|} ${item.status}`)
+  items: []
 });
 
-view.append(gameList);
+var noGamesText = blessed.text({
+  parent: view,
+  top: "center",
+  left: "center",
+  shrink: true,
+  height: 1,
+  content: 'No games available',
+  style: {
+    fg: "white"
+  }
+});
+
+var setGameListItems = () => {
+  gameList.setItems(getGameListItems());
+};
+
+var getGameListItems = () =>
+  store.getState().games.map(item => `${item.name} {|} ${item.status}`);
+
+var toggleListAndText = () => {
+  if (getGameListItems().length) {
+    setGameListItems();
+    noGamesText.hide();
+    gameList.show();
+  } else {
+    noGamesText.show();
+    gameList.hide();
+  }
+};
 
 module.exports = {
   target: view,
   mount: () => {
+    toggleListAndText();
     gameList.focus();
   },
-  unmount: () => {},
+  unmount: () => {}
 };
