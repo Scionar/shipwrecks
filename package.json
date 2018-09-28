@@ -1,0 +1,17 @@
+{
+  "name": "Shipwrecks",
+  "version": "1.0.0",
+  "description": "Command line battle ship game",
+  "main": "main.js",
+  "author": {
+    "name" : "Joona Viertola",
+    "url": "https://joonaviertola.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "blessed": "^0.1.81"
+  }
+}
