@@ -1,4 +1,4 @@
-# Shipwrecks
+# :sailboat: Shipwrecks
 
 Command line battle ship game. So cool. Wow.
 
