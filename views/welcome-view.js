@@ -1,5 +1,8 @@
 var blessed = require("blessed");
+var carousel = require("../carousel");
 var store = require("../store");
+var screen = require("../screen");
+var { selectGameFromList } = require('../actions');
 
 var view = blessed.box({
   top: "center",
@@ -66,6 +69,12 @@ var gameList = blessed.list({
     }
   },
   items: []
+});
+
+gameList.on("select", (item, index) => {
+  store.dispatch(selectGameFromList(index));
+  screen.debug(index);
+  carousel.show('gameView');
 });
 
 var noGamesText = blessed.text({

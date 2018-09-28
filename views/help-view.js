@@ -35,9 +35,10 @@ view.append(title);
 
 var keys = [
   { key: "Q", description: "Exit" },
-  { key: "H", description: "Show help view" },
-  { key: "Esc", description: "Show start view" },
-  { key: "N", description: "New game view" }
+  { key: "H", description: "Help view" },
+  { key: "Esc", description: "Start view" },
+  { key: "N", description: "New game view" },
+  { key: "G", description: "Game view" }
 ];
 
 var keyList = blessed.table({
