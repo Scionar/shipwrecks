@@ -9,7 +9,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "node main.js"
+    "start": "DEBUG=false node main.js",
+    "start-debug": "DEBUG=true node main.js"
   },
   "dependencies": {
     "blessed": "^0.1.81",
