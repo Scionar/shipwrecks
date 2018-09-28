@@ -1,7 +1,7 @@
 var screen = require('./screen');
 var carousel = require('./carousel');
-var welcomeView = require('./welcome-view');
-var helpView = require('./help-view');
+var welcomeView = require('./views/welcome-view');
+var helpView = require('./views/help-view');
 
 carousel.init(screen);
 
