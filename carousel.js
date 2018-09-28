@@ -26,12 +26,11 @@ var init = screen => {
 var add = (...args) => {
   args.forEach(arg => {
     // Append to screen
-    mainScreen.append(arg.view);
+    mainScreen.append(arg.view.target);
 
     // Set key to show this view
     mainScreen.key(arg.key, (ch, key) => {
       show(arg.name);
-      mainScreen.render();
     });
 
     // Push to array
@@ -40,15 +39,25 @@ var add = (...args) => {
 };
 
 /**
- * Show only one view defined by it's name. Hide all others.
+ * Show only one view defined by it's name. Hide all others. Run mount and
+ * unmount callbacks of views if needed.
  *
  * @param {string} name - Name of the view which is shown
  */
 var show = (name, render = true) => {
   viewArray.forEach(item => {
-    item.name === name ? item.view.show() : item.view.hide();
+    if (item.name === name && item.shown === false) {
+      item.view.target.show();
+      item.view.mount();
+      item.shown = true;
+    } else {
+      item.view.target.hide();
+      item.view.unmount();
+      item.shown = false;
+    }
   });
-  mainScreen.render();
+
+  if (render) mainScreen.render();
 };
 
 /**

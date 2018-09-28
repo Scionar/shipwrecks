@@ -6,8 +6,8 @@ var helpView = require('./views/help-view');
 carousel.init(screen);
 
 carousel.add(
-  { name: 'welcomeView', view: welcomeView, key: 'escape' },
-  { name: 'helpView', view: helpView, key: ['h', 'H'] }
+  { name: 'welcomeView', view: welcomeView, key: 'escape', shown: false },
+  { name: 'helpView', view: helpView, key: ['h', 'H'], shown: false }
 );
 
 carousel.show('welcomeView');
