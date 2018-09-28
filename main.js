@@ -1,5 +1,5 @@
-var screen = require('./screen');
 var carousel = require('./carousel');
+var screen = require('./screen');
 var welcomeView = require('./views/welcome-view');
 var helpView = require('./views/help-view');
 
@@ -12,10 +12,4 @@ carousel.add(
 
 carousel.show('welcomeView');
 
-// Quit on Escape, q, or Control-C.
-screen.key(['q', 'C-c'], function(ch, key) {
-  return process.exit(0);
-});
-
-// Render the screen.
-screen.render();
+carousel.exit(['q', 'C-c']);

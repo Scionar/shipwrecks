@@ -44,14 +44,27 @@ var add = (...args) => {
  *
  * @param {string} name - Name of the view which is shown
  */
-var show = name => {
+var show = (name, render = true) => {
   viewArray.forEach(item => {
     item.name === name ? item.view.show() : item.view.hide();
+  });
+  mainScreen.render();
+};
+
+/**
+ * Add keys to close the app.
+ *
+ * @param {(string | array)} keys - Keys to exit the app
+ */
+var exit = keys => {
+  mainScreen.key(keys, (ch, key) => {
+    return process.exit(0);
   });
 };
 
 module.exports = {
   init,
   add,
-  show
+  show,
+  exit
 };
