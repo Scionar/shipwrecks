@@ -36,10 +36,10 @@ view.append(title);
 var keys = [
   { key: "Q", description: "Exit" },
   { key: "H", description: "Show help view" },
-  { key: "Esc", description: "Show start view" }
+  { key: "Esc", description: "Show start view" },
+  { key: "N", description: "New game view" }
 ];
 
-// keys.map(item => `${item.key} - ${item.description}`)
 var keyList = blessed.table({
   top: "center",
   left: "center",

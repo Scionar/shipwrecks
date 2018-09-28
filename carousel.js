@@ -63,9 +63,12 @@ var add = (...args) => {
  */
 var show = (name, render = true) => {
   viewArray.forEach(item => {
-    if (item.name === name && item.shown === false) {
-      item.view.target.show();
-      item.view.mount();
+    if (item.name === name) {
+      // Mount and show only if item is not shown at the moment
+      if (item.shown === false) {
+        item.view.target.show();
+        item.view.mount();
+      }
       item.shown = true;
     } else {
       item.view.target.hide();
