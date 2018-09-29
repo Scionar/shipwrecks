@@ -68,6 +68,7 @@ var show = (name, render = true) => {
       if (item.shown === false) {
         item.view.target.show();
         item.view.mount();
+        item.view.update();
       }
       item.shown = true;
     } else {

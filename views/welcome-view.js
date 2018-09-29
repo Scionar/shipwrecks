@@ -1,10 +1,10 @@
-var blessed = require("blessed");
-var carousel = require("../carousel");
-var store = require("../store");
-var screen = require("../screen");
-var { selectGameFromList } = require('../actions');
+const blessed = require("blessed");
+const carousel = require("../carousel");
+const store = require("../store");
+const screen = require("../screen");
+const { selectGameFromList } = require('../actions');
 
-var view = blessed.box({
+const view = blessed.box({
   top: "center",
   left: "center",
   width: "100%",
@@ -21,7 +21,7 @@ var view = blessed.box({
   }
 });
 
-var title = blessed.box({
+const title = blessed.box({
   parent: view,
   top: 0,
   left: "center",
@@ -37,7 +37,7 @@ var title = blessed.box({
   }
 });
 
-var helpText = blessed.box({
+const helpText = blessed.box({
   parent: view,
   bottom: 0,
   left: "center",
@@ -52,7 +52,7 @@ var helpText = blessed.box({
   }
 });
 
-var gameList = blessed.list({
+const gameList = blessed.list({
   parent: view,
   top: "center",
   left: "center",
@@ -77,7 +77,7 @@ gameList.on("select", (item, index) => {
   carousel.show('gameView');
 });
 
-var noGamesText = blessed.text({
+const noGamesText = blessed.text({
   parent: view,
   top: "center",
   left: "center",
@@ -89,14 +89,14 @@ var noGamesText = blessed.text({
   }
 });
 
-var setGameListItems = () => {
+const setGameListItems = () => {
   gameList.setItems(getGameListItems());
 };
 
-var getGameListItems = () =>
+const getGameListItems = () =>
   store.getState().games.map(item => `${item.name} {|} ${item.status}`);
 
-var toggleListAndText = () => {
+const toggleListAndText = () => {
   if (getGameListItems().length) {
     setGameListItems();
     noGamesText.hide();
@@ -107,11 +107,15 @@ var toggleListAndText = () => {
   }
 };
 
+const update = () => {
+  toggleListAndText();
+}
+
 module.exports = {
   target: view,
   mount: () => {
-    toggleListAndText();
     gameList.focus();
   },
-  unmount: () => {}
+  unmount: () => {},
+  update
 };

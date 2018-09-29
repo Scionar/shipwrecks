@@ -1,6 +1,6 @@
-var blessed = require("blessed");
+const blessed = require("blessed");
 
-var view = blessed.box({
+const view = blessed.box({
   top: "center",
   left: "center",
   width: "100%",
@@ -17,7 +17,7 @@ var view = blessed.box({
   }
 });
 
-var title = blessed.box({
+const title = blessed.box({
   top: 0,
   left: "center",
   width: "100%-2",
@@ -33,7 +33,7 @@ var title = blessed.box({
 });
 view.append(title);
 
-var keys = [
+const keys = [
   { key: "Q", description: "Exit" },
   { key: "H", description: "Help view" },
   { key: "Esc", description: "Start view" },
@@ -41,7 +41,7 @@ var keys = [
   { key: "G", description: "Game view" }
 ];
 
-var keyList = blessed.table({
+const keyList = blessed.table({
   top: "center",
   left: "center",
   width: "40%",
@@ -60,4 +60,5 @@ module.exports = {
     view.focus();
   },
   unmount: () => {},
+  update: () => {}
 };

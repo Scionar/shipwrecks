@@ -1,9 +1,9 @@
-var blessed = require("blessed");
-var carousel = require("../carousel");
-var store = require("../store");
-var { addGame } = require("../actions");
+const blessed = require("blessed");
+const carousel = require("../carousel");
+const store = require("../store");
+const { addGame } = require("../actions");
 
-var view = blessed.box({
+const view = blessed.box({
   top: "center",
   left: "center",
   width: "100%",
@@ -20,7 +20,7 @@ var view = blessed.box({
   }
 });
 
-var title = blessed.box({
+const title = blessed.box({
   top: 0,
   left: "center",
   width: "100%-2",
@@ -36,7 +36,7 @@ var title = blessed.box({
 });
 view.append(title);
 
-var form = blessed.form({
+const form = blessed.form({
   parent: view,
   keys: true,
   top: "center",
@@ -46,7 +46,7 @@ var form = blessed.form({
   content: "Create new game"
 });
 
-var input = blessed.textbox({
+const input = blessed.textbox({
   parent: form,
   mouse: true,
   keys: true,
@@ -66,7 +66,7 @@ input.on("submit", () => {
   submit.focus();
 })
 
-var submit = blessed.button({
+const submit = blessed.button({
   parent: form,
   mouse: true,
   shrink: true,
@@ -99,5 +99,6 @@ module.exports = {
   },
   unmount: () => {
     form.reset();
-  }
+  },
+  update: () => {}
 };

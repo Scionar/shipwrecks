@@ -1,7 +1,7 @@
-var blessed = require("blessed");
-var store = require("../store");
+const blessed = require("blessed");
+const store = require("../store");
 
-var view = blessed.box({
+const view = blessed.box({
   top: "center",
   left: "center",
   width: "100%",
@@ -18,7 +18,7 @@ var view = blessed.box({
   }
 });
 
-var title = blessed.box({
+const title = blessed.box({
   parent: view,
   top: 0,
   left: "center",
@@ -28,42 +28,42 @@ var title = blessed.box({
   content: "{center}{bold}Game{/bold}{/center}"
 });
 
-var ownGameBoard = blessed.box({
+const ownGameBoard = blessed.box({
   parent: view,
   top: "center",
   left: "center",
   shrink: true
 });
 
-var setBoardContent = () => {
-  let board = '';
-  board += '    A  B  C  D  E  F  G  H  I  J \n';
-  board += ' 1 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 2 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 3 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 4 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 5 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 6 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 7 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 8 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += ' 9 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '10 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]';
+const setBoardContent = () => {
+  let board = "";
+  board += "    A  B  C  D  E  F  G  H  I  J \n";
+  board += " 1 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 2 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 3 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 4 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 5 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 6 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 7 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 8 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += " 9 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n";
+  board += "10 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]";
   ownGameBoard.setContent(board);
 };
 
-var noGameSelectedText = blessed.text({
+const noGameSelectedText = blessed.text({
   parent: view,
   top: "center",
   left: "center",
   shrink: true,
   height: 1,
-  content: 'No game selected',
+  content: "No game selected",
   style: {
     fg: "white"
   }
 });
 
-var toggleBoardAndText = () => {
+const toggleBoardAndText = () => {
   const selectedGame = store.getState().selectedGame;
 
   if (selectedGame !== null && selectedGame !== undefined) {
@@ -76,11 +76,15 @@ var toggleBoardAndText = () => {
   }
 };
 
+const update = () => {
+  toggleBoardAndText();
+};
+
 module.exports = {
   target: view,
   mount: () => {
-    toggleBoardAndText();
     ownGameBoard.focus();
   },
-  unmount: () => {}
+  unmount: () => {},
+  update
 };
