@@ -28,7 +28,7 @@ var title = blessed.box({
   content: "{center}{bold}Game{/bold}{/center}"
 });
 
-var gameBoard = blessed.box({
+var ownGameBoard = blessed.box({
   parent: view,
   top: "center",
   left: "center",
@@ -37,17 +37,18 @@ var gameBoard = blessed.box({
 
 var setBoardContent = () => {
   let board = '';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
-  board += '[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]';
-  gameBoard.setContent(board);
+  board += '    A  B  C  D  E  F  G  H  I  J \n';
+  board += ' 1 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 2 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 3 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 4 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 5 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 6 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 7 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 8 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += ' 9 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]\n';
+  board += '10 [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]';
+  ownGameBoard.setContent(board);
 };
 
 var noGameSelectedText = blessed.text({
@@ -68,10 +69,10 @@ var toggleBoardAndText = () => {
   if (selectedGame !== null && selectedGame !== undefined) {
     setBoardContent();
     noGameSelectedText.hide();
-    gameBoard.show();
+    ownGameBoard.show();
   } else {
     noGameSelectedText.show();
-    gameBoard.hide();
+    ownGameBoard.hide();
   }
 };
 
@@ -79,7 +80,7 @@ module.exports = {
   target: view,
   mount: () => {
     toggleBoardAndText();
-    gameBoard.focus();
+    ownGameBoard.focus();
   },
   unmount: () => {}
 };
