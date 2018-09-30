@@ -1,13 +1,15 @@
 const carousel = require("./carousel");
 const screen = require("./screen");
-const store = require('./store');
-const { addPlayerRequest } = require('./actions');
+const store = require("./store");
+const { addPlayerRequest, addPlayerInformation } = require("./actions");
 const welcomeView = require("./views/welcome-view");
 const helpView = require("./views/help-view");
 const newGameView = require("./views/new-game-view");
 const gameView = require("./views/game-view");
 
-store.dispatch(addPlayerRequest());
+store
+  .dispatch(addPlayerRequest())
+  .then(response => store.dispatch(addPlayerInformation(response.authKey)));
 
 carousel.init(screen);
 

@@ -20,15 +20,11 @@ module.exports.selectGameFromList = index => ({
   index
 });
 
-const addPlayerInformation = authKey => ({
+module.exports.addPlayerInformation = authKey => ({
   type: "ADD_PLAYER_INFORMATION",
   authKey
 });
-module.exports.addPlayerInformation;
 
 module.exports.addPlayerRequest = () => dispatch => {
-  return request("post", "/player").then(response => {
-    debugMsg(JSON.stringify(response), "authKey");
-    dispatch(addPlayerInformation(response.authKey));
-  });
+  return request("post", "/player");
 };

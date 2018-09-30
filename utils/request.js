@@ -1,14 +1,15 @@
 const fetch = require("node-fetch");
 const store = require("../store");
 const requestErrorHandling = require("./request-error-handling");
+const debugMsg = require("./debug-msg");
 
 const serverHost = "http://localhost:3000";
-const authKey = store.getState().player.authKey;
 
 const request = (method, url, params = {}) => {
+  const authKey = store.getState().player.authKey;
   const requestConfig = {
     method,
-    headers: { "auth-key": authKey }
+    headers: { "Auth-key": authKey }
   };
 
   if (params.jsonBody) {
