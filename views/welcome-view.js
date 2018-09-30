@@ -2,7 +2,7 @@ const blessed = require("blessed");
 const carousel = require("../carousel");
 const store = require("../store");
 const screen = require("../screen");
-const { selectGameFromList } = require('../actions');
+const { selectGameFromList, getAllGamesRequest, setGames } = require('../actions');
 
 const view = blessed.box({
   top: "center",
@@ -73,7 +73,6 @@ const gameList = blessed.list({
 
 gameList.on("select", (item, index) => {
   store.dispatch(selectGameFromList(index));
-  screen.debug(index);
   carousel.show('gameView');
 });
 
@@ -107,8 +106,13 @@ const toggleListAndText = () => {
   }
 };
 
-const update = () => {
-  toggleListAndText();
+const update = done => {
+  store.dispatch(getAllGamesRequest())
+  .then(response => store.dispatch(setGames(response.games)))
+  .then(() => {
+    toggleListAndText();
+    done();
+  });
 }
 
 module.exports = {

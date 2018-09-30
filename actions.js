@@ -2,10 +2,18 @@ const debugMsg = require("./utils/debug-msg");
 const request = require("./utils/request");
 const requestErrorHandling = require("./utils/request-error-handling");
 
-module.exports.addGame = name => ({
-  type: "ADD_GAME",
-  name
+module.exports.setGames = games => ({
+  type: "SET_GAME_LIST",
+  games
 });
+
+module.exports.getAllGamesRequest = () => dispatch => {
+  return request("get", "/game");
+};
+
+module.exports.addGameRequest = name => dispatch => {
+  return request("post", "/game", { jsonBody: { name } });
+};
 
 module.exports.selectGameFromList = index => ({
   type: "SELECT_GAME_FROM_LIST",
@@ -19,11 +27,8 @@ const addPlayerInformation = authKey => ({
 module.exports.addPlayerInformation;
 
 module.exports.addPlayerRequest = () => dispatch => {
-  request("post", "/player")
-  .then(
-    response => {
-      debugMsg(response, 'authKey')
-      dispatch(addPlayerInformation(response.authKey));
-    }
-  )
+  return request("post", "/player").then(response => {
+    debugMsg(JSON.stringify(response), "authKey");
+    dispatch(addPlayerInformation(response.authKey));
+  });
 };

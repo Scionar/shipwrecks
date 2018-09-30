@@ -1,20 +1,26 @@
 const fetch = require("node-fetch");
 const store = require("../store");
-const screen = require("../screen");
+const requestErrorHandling = require("./request-error-handling");
 
 const serverHost = "http://localhost:3000";
 const authKey = store.getState().player.authKey;
 
-const request = (method, url) => {
-  return fetch(`${serverHost}${url}`, {
+const request = (method, url, params = {}) => {
+  const requestConfig = {
     method,
-    headers: {
-      "auth-key": authKey
-    }
-  }).then(
+    headers: { "auth-key": authKey }
+  };
+
+  if (params.jsonBody) {
+    requestConfig.body = JSON.stringify(params.jsonBody);
+    requestConfig.headers["Content-type"] = "application/json";
+  }
+
+  const requestUrl = `${serverHost}${url}`;
+  return fetch(requestUrl, requestConfig).then(
     res => res.json(),
     error => {
-      requestErrorHandling(error, "Request error");
+      requestErrorHandling(error, `Request error (${requestUrl})`);
     }
   );
 };

@@ -2,7 +2,6 @@ const defaultState = {
   player: {
     authKey: null
   },
-  nextGameIndex: 0,
   games: [],
   selectedGame: null
 };
@@ -30,6 +29,11 @@ const reducer = (state = defaultState, action) => {
           ...state.player,
           authKey: action.authKey
         }
+      };
+    case "SET_GAME_LIST":
+      return {
+        ...state,
+        games: action.games
       };
     default:
       return state;

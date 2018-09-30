@@ -1,7 +1,9 @@
 const blessed = require("blessed");
 const carousel = require("../carousel");
 const store = require("../store");
-const { addGame } = require("../actions");
+const requestErrorHandling = require("../utils/request-error-handling");
+const { addGameRequest, getAllGamesRequest, setGames } = require("../actions");
+const debugMsg = require("../utils/debug-msg");
 
 const view = blessed.box({
   top: "center",
@@ -64,7 +66,7 @@ const input = blessed.textbox({
 
 input.on("submit", () => {
   submit.focus();
-})
+});
 
 const submit = blessed.button({
   parent: form,
@@ -85,11 +87,18 @@ const submit = blessed.button({
 
 submit.on("press", () => {
   form.submit();
-})
+});
 
 form.on("submit", data => {
-  store.dispatch(addGame(data.name));
-  carousel.show("welcomeView");
+  const gameName = data.name;
+
+  store
+    .dispatch(addGameRequest(gameName))
+    .then(() => store.dispatch(getAllGamesRequest()))
+    .then(response => store.dispatch(setGames(response.games)))
+    .then(() => {
+      carousel.show("welcomeView");
+    });
 });
 
 module.exports = {
