@@ -68,7 +68,12 @@ var show = (name, render = true) => {
       if (item.shown === false) {
         item.view.target.show();
         item.view.mount();
-        item.view.update();
+
+        // Update event's first parameter is a callback which launches render.
+        // This is useful for async actions.
+        item.view.update(() => {
+          mainScreen.render()
+        });
       }
       item.shown = true;
     } else {
