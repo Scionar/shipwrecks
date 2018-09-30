@@ -2,7 +2,12 @@ const blessed = require("blessed");
 const carousel = require("../carousel");
 const store = require("../store");
 const screen = require("../screen");
-const { selectGameFromList, getAllGamesRequest, setGames } = require('../actions');
+const {
+  selectGameFromList,
+  getAllGamesRequest,
+  setGames,
+  joinGame
+} = require("../actions");
 
 const view = blessed.box({
   top: "center",
@@ -73,7 +78,9 @@ const gameList = blessed.list({
 
 gameList.on("select", (item, index) => {
   store.dispatch(selectGameFromList(index));
-  carousel.show('gameView');
+  store.dispatch(joinGame(index)).then(() => {
+    carousel.show("gameView");
+  });
 });
 
 const noGamesText = blessed.text({
@@ -82,7 +89,7 @@ const noGamesText = blessed.text({
   left: "center",
   shrink: true,
   height: 1,
-  content: 'No games available',
+  content: "No games available",
   style: {
     fg: "white"
   }
@@ -107,13 +114,14 @@ const toggleListAndText = () => {
 };
 
 const update = done => {
-  store.dispatch(getAllGamesRequest())
-  .then(response => store.dispatch(setGames(response.games)))
-  .then(() => {
-    toggleListAndText();
-    done();
-  });
-}
+  store
+    .dispatch(getAllGamesRequest())
+    .then(response => store.dispatch(setGames(response.games)))
+    .then(() => {
+      toggleListAndText();
+      done();
+    });
+};
 
 module.exports = {
   target: view,

@@ -20,6 +20,10 @@ module.exports.selectGameFromList = index => ({
   index
 });
 
+module.exports.joinGame = id => dispatch => {
+  return request("put", `/game/${id}/join`);
+};
+
 module.exports.addPlayerInformation = authKey => ({
   type: "ADD_PLAYER_INFORMATION",
   authKey
